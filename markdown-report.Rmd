@@ -1,0 +1,454 @@
+---
+title: "Write Reports in R Markdown"
+author: "Prof. Dr. Jan Kirenz, HdM Stuttgart"
+output:
+ html_document: 
+  css: style.css # define your own css
+  df_print: paged #  tables are printed as HTML tables 
+  highlight: default # syntax highlighting style 
+  number_sections: yes # numbering of sections
+  theme: paper # style option
+  fig_height: 4 # figure height
+  fig_width: 8 # figure width
+  toc: yes # table of content
+  toc_float: 
+    collapsed: false # show full toc
+    smooth_scroll: true # toc scrolling behavior
+  includes:
+    after_body: footer.html # include footer
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(gapminder)
+```
+
+# Markdown basics {#intro}
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/416px-Markdown-mark.svg.png){width=50px}
+
+Markdown is one of the world’s most popular markup languages used in data science. Both [R Markdown](https://rmarkdown.rstudio.com) and [Jupyter Notebooks](https://jupyter.org) use Markdown to provide an unified authoring framework for data science, combining code (R, Python, SQL,…), its results and commentary. The documents are fully reproducible and support dozens of output formats, like PDFs, Word files, slideshows, dashboards and more.
+
+```{r out.width="400", out.height=="400", echo = FALSE, fig.align='center', fig.cap = "R Markdown Notebook", fig.asp=0.80}
+
+knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/26639e1fec7fa314b8fe521d1e8f97de10ff12a8/66448/images/bandtwo2.png")
+```
+
+
+
+According to [Wickham & Grolemund (2016)](https://r4ds.had.co.nz/r-markdown.html), Markdown files are designed to be used in three ways:
+
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+<div class = "blue">
+
+1. For **communicating** to decision makers, who want to focus on the conclusions, not the code behind the analysis.
+
+1. For **collaborating** with other data scientists, who are interested in both your conclusions, and how you reached them (i.e. the code).
+
+1. As an environment in which **to do data science**, as a modern day lab notebook where you can capture not only what you did, but also what you were thinking.
+
+</div>
+
+<br />
+
+Learn the most important basics of Markdown in this excellent interactive ["60 Seconds Markdown Tutorial"](https://commonmark.org/help/). There are many options to discover - for example, [this link](#intro) will bring you back to the top of the page. 
+
+However, using Markdown doesn't mean that you can't also use [Hypertext Markup Language (HTML)](https://www.w3schools.com/html/). You can add HTML tags to any Markdown file. This means you can also include HTML iframes to display a web page within a web page. In particular, if you have the URL to a Vimeo or YouTube video, you can use an embeddable `<iframe>` element for the video in question. Like the one below:
+
+<br />
+
+<!--
+Hint: you need to open the document in a web browser to view the video (not inside RStudio)
+-->
+
+
+<iframe src="https://player.vimeo.com/video/178485416?color=428bca&title=0&byline=0&portrait=0" width="500" height="300" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+<p><a href="https://vimeo.com/178485416">What is R Markdown?</a> from <a href="https://vimeo.com/rstudioinc">RStudio, Inc.</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+
+
+
+<br />
+
+Furthermore, you can add your own [Cascading Style Sheets (CSS)](https://www.w3schools.com/css/) to change the style of your HTML document (CSS describes how HTML elements should be displayed) by using the css option in YAML (see section [YAML](#yaml)). 
+
+## Integrate code
+
+In R Markdown it is easy to integrate the results of R code in text elements.  
+
+```{r}
+africa_07 <-  
+  gapminder %>% 
+  filter(continent == "Africa") %>% 
+  group_by(continent, year) %>% 
+  summarize(mean = round(mean(lifeExp),2)) %>% 
+  filter(year == 2007) %>% 
+  pull(mean) # obtain result as number
+```
+
+In particular, we can perform a data analysis like the one above and integrate the corresponding result (stored in `africa_07`) in Markdown comments. Instead of actually typing the result, we use the code `` `r "\u0060r africa_07\u0060"` `` (read this [post](https://rviews.rstudio.com/2017/12/04/how-to-show-r-inline-code-blocks-in-r-markdown/) to learn how to display R code snippets in Markdown).
+
+This code:
+
+* The average life expectancy in Africa equals `` `r "\u0060r africa_07\u0060"` `` years in 2007
+
+renders to:
+
+* The average life expectancy in Africa equals `r africa_07` years in 2007.
+
+## Integrate tabs {.tabset}
+
+You can organize content using tabs by applying the {.tabset} class attribute to headers within a document. This will cause all sub-headers of the header with the .tabset attribute to appear within tabs rather than as standalone sections (learn more about the usage of [tabs](https://bookdown.org/yihui/rmarkdown/html-document.html)):
+
+### Tab 1
+
+```{r cols.print=6, rows.print=3, echo = FALSE}
+gapminder %>% 
+  filter(continent == "Africa") %>% 
+  group_by(continent, year) %>% 
+  summarize(mean = round(mean(lifeExp),2)) %>% 
+  rename(Continent = continent, 
+         Year = year,
+         `Average Life Expectancy` = mean)
+```
+
+### Tab 2
+
+```{r cols.print=3, rows.print=3, echo = FALSE}
+gapminder %>% 
+  filter(continent == "Europe") %>% 
+  group_by(continent, year) %>% 
+  summarize(mean = round(mean(lifeExp),2)) %>% 
+  rename(Continent = continent, 
+         Year = year,
+         `Average Life Expectancy` = mean) 
+```
+
+### Tab 3 
+
+```{r cols.print=3, rows.print=3, echo = FALSE}
+gapminder %>% 
+  filter(continent == "Asia") %>% 
+  group_by(continent, year) %>% 
+  summarize(mean = round(mean(lifeExp),2)) %>% 
+  rename(Continent = continent, 
+         Year = year,
+         `Average Life Expectancy` = mean)  
+```
+
+
+## YAML metadata {#yaml}
+
+To create HTML documents from R Markdown, you first need to specify the `html_document` output format in the YAML metadata at the top of your document. 
+
+**YAML** (a recursive acronym for "YAML Ain't Markup Language") is a human-readable data-serialization language which is commonly used for configuration files and in applications where data is being stored or transmitted.
+
+You can find an overview of all the YAML-options for R Markdown in the excellent book ["R Markdown: The Definitive Guide" (2019)](https://bookdown.org/yihui/rmarkdown/html-document.html) from Yihui Xie, J. J. Allaire and Garrett Grolemund.  
+
+YAML metadata for this document:
+
+```{r, eval=FALSE}
+---
+title: "Write Reports in R Markdown"
+author: "Prof. Dr. Jan Kirenz, HdM Stuttgart"
+output:
+ html_document: 
+  css: style.css # define your own css
+  df_print: paged #  tables are printed as HTML tables 
+  highlight: default # syntax highlighting style 
+  number_sections: yes # numbering of sections
+  theme: paper # style option
+  fig_height: 4 # figure height
+  fig_width: 10 # figure width
+  toc: yes # table of content
+  toc_float: 
+    collapsed: false # show full toc
+    smooth_scroll: true # toc scrolling behavior
+  includes:
+    after_body: footer.html # include footer
+---
+```
+
+
+# Code Chunks  
+
+## Global options
+
+If you want to use data or packages in multiple code chunks, it is good practice to load them once in a code chunk called `setup` right below the YAML-options. Furthermore, if a certain option needs to be frequently set to a value in multiple code chunks, you can consider setting it globally in the setup code chunk. To set global options that apply to every chunk in your file, call `knitr::opts_chunk$set` in a code chunk. Knitr will treat each option that you pass to `knitr::opts_chunk$set` as a global default that can be overwritten in individual chunk headers.
+
+`R setup` code chunk of this document:
+
+```
+{r setup, include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(gapminder)
+library(plotly)
+```
+
+## Chunk Options
+
+Chunk output can be customized with [knitr options](https://rmarkdown.rstudio.com/lesson-3.html), arguments set in the {} of a chunk header:
+
+* `include = FALSE` prevents code *and* results from appearing in the finished file. However, R Markdown still runs the code in the chunk, and the results can be used by other chunks.
+
+```{r include = FALSE}
+result_europe <- gapminder %>% 
+  filter(continent == "Europe" & year == 2007) %>% 
+  top_n(n=10, wt = pop) %>%
+  select(country, year, pop) %>% 
+  arrange(desc(pop)) %>% 
+  rename(Population = pop, Country = country, Year = year)
+
+result_europe
+```
+
+
+* `echo = FALSE` prevents code, but not the results from appearing in the finished file. 
+
+```{r echo = FALSE, rows.print = 2}
+result_europe
+```
+
+* `eval = FALSE` prevents code from running and only displays the code in a knitted document.
+
+* `message = FALSE` prevents messages that are generated by code from appearing in the finished file. 
+
+* `warning = FALSE` prevents warnings that are generated by code from appearing in the finished file.
+
+
+# Tables
+
+## df_print
+
+Notice that we already are able to create enhanced HTML tables via our [`df_print`](https://bookdown.org/yihui/rmarkdown/html-document.html) option in the YAML options:
+
+```{r cols.print=5, rows.print=4}
+(life_exp_07 <- gapminder %>% 
+  filter(year==2007) %>% 
+  arrange(desc(lifeExp)))
+```
+
+## KableExtra
+
+You can also use the package [`kableExtra`](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) to build HTML optimized tables and manipulate table styles. It imports the pipe `%>%` symbol and verbalize all the functions, so basically you can add “layers” to a kable output in a way that is similar with `ggplot2` and `plotly`:
+
+```{r}
+library(kableExtra)
+
+kable(head(life_exp_07, 6)) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) 
+```
+
+## DT DataTables
+
+The R package `DT` provides an R interface to the JavaScript library DataTables. R data objects (matrices or data frames) can be displayed as tables on HTML pages and DataTables provides filtering, pagination, sorting, and many other features in the tables. See this [DT-Table documentation](https://rstudio.github.io/DT/) for an overview of the different options.
+
+```{r}
+library(DT)
+
+datatable(head(life_exp_07, 6),
+          rownames = FALSE,
+          filter = "top",
+          colnames = c('Country', 
+                       'Continent', 
+                       'Year', 
+                       'Life Expectancy', 
+                       'Population',
+                       'GDP per Capita'),
+           caption = 'Table 1: Gapminder data overview')
+```
+
+## gt
+
+The [gt package](https://gt.rstudio.com/articles/intro-creating-gt-tables.html) is all about making it simple to produce nice-looking display tables:
+
+```{r}
+library(gt)
+
+set.seed(123)
+
+life_exp_07 %>% 
+  slice_sample(n=10) %>% 
+  gt()
+  
+```
+
+Same table with some adjustments:
+
+```{r}
+
+set.seed(123)
+
+
+life_exp_07 %>% 
+  slice_sample(n=10) %>% 
+  group_by(continent) %>% 
+  gt() %>%
+  tab_header(
+    title = "Gapminder data overview",
+    subtitle = "Data overview with the gt package"
+  ) %>% 
+   tab_source_note(
+    source_note = "Source: Gapminder"
+  ) %>%
+  fmt_currency(
+    columns = vars(gdpPercap),
+    currency = "USD",
+    decimals = 0
+    ) %>% 
+  fmt_number(
+    columns = vars(lifeExp),
+    decimals = 2 
+    ) %>% 
+  fmt_number(
+    columns = vars(pop),
+    decimals = 2) 
+
+```
+
+
+
+# Plots
+
+## ggplot2
+
+`ggplot2` is a system for declaratively creating graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details ([ggplot2 documentation](https://ggplot2.tidyverse.org))
+
+
+```{r}
+## data preparation
+gap_continent <- gapminder %>% 
+  group_by(continent, year) %>% 
+  summarize(mean = round(mean(lifeExp),2)) 
+
+## create plot
+p <- ggplot(gap_continent, aes(year, mean, color = continent)) +
+  geom_line() +
+  theme_classic() +
+  ggtitle("Average Life Expectancy") +
+  theme(axis.title.x=element_blank(),
+        axis.title.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1),
+  legend.title=element_blank())
+
+## display plot
+p
+```
+
+
+## Plotly
+
+[Plotly's R graphing library](https://plot.ly/r/) makes interactive, publication-quality graphs. Examples of how to make line plots, scatter plots, area charts, bar charts, error bars, box plots, histograms, heatmaps, subplots, multiple-axes, and 3D (WebGL based) charts. 
+
+* [Plotly Cheat Sheet](https://images.plot.ly/plotly-documentation/images/r_cheat_sheet.pdf?_ga=2.264095052.1306053748.1574183855-1469791274.1573848285)
+
+```{r out.width="80%"}
+library(plotly)
+
+ggplotly(p)
+
+```
+
+
+
+# Leaflet Maps
+
+
+```{r include = FALSE}
+library(leaflet)
+# Set value for the minZoom and maxZoom settings.
+leaflet(options = leafletOptions(minZoom = 0, maxZoom = 18))
+```
+
+Leaflet is one of the most popular open-source JavaScript libraries for interactive maps. It’s used by websites ranging from The New York Times and The Washington Post to GitHub and Flickr, as well as GIS specialists like OpenStreetMap, Mapbox, and CartoDB. For detailed information, visit the [package documentation](https://rstudio.github.io/leaflet/).
+
+Once installed, you can use this package at the R console, within R Markdown documents, and within Shiny applications. If you like to implement leaflet in **shiny**, review this [tutorial](https://rstudio.github.io/leaflet/shiny.html)
+
+
+## Basic map
+
+```{r out.width="80%"}
+leaflet() %>% 
+  setView(lng = 9.102360, lat = 48.740760, zoom = 17) %>% 
+  addTiles() 
+```
+
+## Map with pop up
+
+```{r out.width="80%"}
+content <- paste(
+  sep = "<br/>",
+  "<b><a href='https://www.hdm-stuttgart.de'>HdM Stuttgart</a></b>",
+  "Nobelstraße 8",
+  "70569 Stuttgart"
+  )
+
+leaflet() %>% 
+  setView(lng = 9.102360, lat = 48.740760, zoom = 17) %>% 
+  addTiles() %>%
+  addPopups(9.101470, 48.741460, content,
+    options = popupOptions(closeButton = FALSE)
+  )
+```
+
+## ggmap
+
+[ggmap](https://github.com/dkahle/ggmap) is an R package that makes it easy to retrieve raster map tiles from popular online mapping services like Google Maps and Stamen Maps and plot them using the ggplot2 framework:
+
+```{r}
+library("ggmap")
+
+# data
+us <- c(left = -125, bottom = 25.75, right = -67, top = 49)
+
+get_stamenmap(us, zoom = 5, maptype = "toner-lite") %>% 
+  ggmap()
+
+```
+
+
+```{r}
+library(purrr)
+
+# define function
+`%not_in%` <- purrr::negate(`%in%`)
+
+# prepare data
+violent_crimes <- crime %>% 
+  filter(
+    offense %not_in% c("auto theft", "theft", "burglary")
+    -95.39681 <= lon & lon <= -95.34188,
+     29.73631 <= lat & lat <=  29.78400
+  ) %>% 
+  mutate(
+    offense = fct_drop(offense),
+    offense = fct_relevel(offense, c("robbery", "aggravated assault", "rape", "murder"))
+  )
+
+```
+
+Plot data:
+
+```{r}
+qmplot(lon, lat, data = violent_crimes, 
+       maptype = "toner-background", 
+       color = offense) + 
+  facet_wrap(~ offense)
+```
+
+
+Alternative plot:
+
+```{r}
+qmplot(lon, lat, data = violent_crimes, geom = "blank", 
+  zoom = 14, maptype = "toner-background", darken = .7, legend = "topleft"
+) +
+  stat_density_2d(aes(fill = ..level..), geom = "polygon", alpha = .3, color = NA) +
+  scale_fill_gradient2("Robbery\nPropensity", low = "white", mid = "yellow", high = "red", midpoint = 650)
+```
+

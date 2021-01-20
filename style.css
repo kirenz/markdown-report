@@ -1,0 +1,85 @@
+/* * Customizing css * */
+
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700';
+@import 'https://fonts.googleapis.com/css?family=Source+Code+Pro';
+
+/* define colors */
+:root {
+  --dark-blue: #002b36;
+  --light-blue: #A7D5E8;
+  --green: #8fada7;
+  --gray: #A7A7A7;
+  --pink: #E9AFA3;
+  --yellow: #e9d968;
+  --beige: #fdf6e3;
+  --green-faint: #8fada750;
+  --light-blue-faint: #A7D5E850;
+  --pink-faint: #E9AFA350;
+}
+
+/* CSS styles */
+
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 300;
+	background-color: #ffffff;
+	color: #222;
+	counter-reset: li;
+}
+
+h1.title {
+	font-weight: 700;
+	font-family: 'Source Sans Pro', sans-serif;
+	color: var(--dark-blue);
+}
+
+h1 {
+	font-style: normal;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 200%;
+	color: var(light-blue);
+}
+
+h2 {
+	font-style: normal;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+	font-size: 175%;
+	color: var(light-blue);
+}
+
+h3.subtitle {
+	font-style: normal;
+	color: var(--green);
+	font-size: 120%;
+}
+
+h4 {
+	font-style: normal;
+	font-weight: 400;
+	font-family: 'Source Sans Pro', sans-serif;
+	margin-top: 1.5rem;
+	margin-bottom: 0;
+	font-size: 120%;
+	line-height: 1;
+}
+
+
+/* Code formatting */
+
+code {
+	font-family: 'Source Code Pro', Consolas, "Liberation Mono", Menlo, Courier, monospace;
+	line-height: 1.6;
+}
+
+/* Add Logo */
+
+<style>
+#TOC {
+  background: url("https://cdn.sstatic.net/Sites/stackoverflow/company/img/logos/so/so-logo.png?v=9c558ec15d8a");
+  background-size: contain;
+  padding-top: 80px !important;
+  background-repeat: no-repeat;
+}
+</style>
+
