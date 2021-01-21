@@ -1,8 +1,8 @@
 ## Markdown report <img src="https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png" align="right" width="10%" height="10%" />
 
-- This repo provides a custom [R Markdown report](https://rmarkdown.rstudio.com) template. 
+- This repo provides a custom R Markdown report template. 
 - To work properly, the report requires the files `style.css` and `footer.html`. 
-- To learn more about the basics of R Markdown, review this excellent [presentation](https://drive.google.com/file/d/1mD6qQlUft2g5oc3SGVuOUGHpE3FtStkr/view) from RStudio's Alison Hill.
+- To learn more about the basics of R Markdown, review the [documentation](https://rmarkdown.rstudio.com) or this excellent [presentation](https://drive.google.com/file/d/1mD6qQlUft2g5oc3SGVuOUGHpE3FtStkr/view) from RStudio's Alison Hill.
 
 
 ## Customising
