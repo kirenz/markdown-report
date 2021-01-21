@@ -1,7 +1,7 @@
 # markdown-report
 
 
-# Markdown report <img src="https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png" align="right" />
+# Markdown report <img src="https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png" align="right" width="20%" height="20%" />
 
 
 ## Overview
