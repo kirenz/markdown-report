@@ -1,18 +1,10 @@
-# markdown-report
-
-
 # Markdown report <img src="https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png" align="right" width="10%" height="10%" />
 
 
 ## Overview
 
-tidytemplate provides a custom [pkgdown](https://pkgdown.r-lib.org)
-template for core tidyverse packages (i.e. packages hosted by the
-[tidyverse organisation](https://github.com/tidyverse)). Please don’t
-use it for your own package.
-
-The theme is built on top of the [paper bootswatch
-theme](https://bootswatch.com/3/paper/).
+This repo provides a custom [r markdown report](https://rmarkdown.rstudio.com)
+template,
 
 ## Using tidytemplate
 
