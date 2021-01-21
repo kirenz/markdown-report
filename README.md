@@ -1,83 +1,36 @@
-# Markdown report <img src="https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png" align="right" width="10%" height="10%" />
+## Markdown report <img src="https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png" align="right" width="10%" height="10%" />
+
+- This repo provides a custom [R Markdown report](https://rmarkdown.rstudio.com) template. 
+- To work properly, the report requires the files `style.css` and `footer.html`. 
+- To learn more about the basics of R Markdown, review this excellent [presentation](https://drive.google.com/file/d/1mD6qQlUft2g5oc3SGVuOUGHpE3FtStkr/view) from RStudio's Alison Hill.
 
 
-## Overview
+## Customising
 
-This repo provides a custom [r markdown report](https://rmarkdown.rstudio.com)
-template,
+- You can customise the report by changing the `YAML` metadata in the header of the document. 
+- To customise the style of the HTML including layout, colors, and fonts you can change the CSS in the file `style.css`. 
+- The content of the footer can be changed in the file `footer.html` (open this file with an editor) 
 
-## Using tidytemplate
-
-Make sure your `_pkgdown.yaml` contains:
 
 ``` yaml
-template:
-  package: tidytemplate
-
-development:
-  mode: auto
-
-home:
-  strip_header: true
+---
+title: "Write Reports in R Markdown"
+author: "Prof. Dr. Jan Kirenz, HdM Stuttgart"
+output:
+ html_document: 
+  css: style.css # define your own css
+  df_print: paged #  tables are printed as HTML tables 
+  highlight: default # syntax highlighting style 
+  number_sections: yes # numbering of sections
+  theme: paper # style option
+  fig_height: 4 # figure height
+  fig_width: 8 # figure width
+  toc: yes # table of content
+  toc_float: 
+    collapsed: false # show full toc
+    smooth_scroll: true # toc scrolling behavior
+  includes:
+    after_body: footer.html # include footer
+---
 ```
-
-You can customise the “part of” in the header, the footer text, and add
-an optional tidymodels CSS theme with template parameters:
-
-``` yaml
-template:
-  package: tidytemplate
-  params:
-    part_of: tidymodels
-    footer: ...
-    theme: tidymodels
-```
-
-To work properly, `tidytemplate` requires the css files in
-`inst/pkgdown/assets/`. Because of this, you should not set
-`default_assets: false` in your `_pkgdown.yaml`.
-
-``` yaml
-template:
-  package: tidytemplate
-  # Do not do this!
-  default_assets: false
-```
-
-If you deploy to github pages automatically using travis, add the
-following to your `.travis.yml`:
-
-``` yaml
-r_github_packages:
-  - tidyverse/tidytemplate
-```
-
-## CSS files
-
-Three CSS files play a role in styling the site:
-
-  - `tidyverse.css` is generated from files in `scss/` written by Robby
-    Shaver. Generally you should not touch these files; Robby is the
-    owner. If needed you can regenerate `tidyverse.css` by running this
-    code:
-    
-    ``` r
-    # devtools::install_github("rstudio/sass")
-    library(sass)
-    sass(
-      sass_file("scss/tidyverse.scss"),
-      output = "inst/pkgdown/assets/tidyverse.css",
-      options = sass_options(output_style = "nested")
-    )
-    ```
-
-  - `pkgdown.css` comes from pkgdown.
-
-  - `tidyverse-2.css` lives in `inst/pkgdown/assets/tidyverse-2.css`.
-    Generally, this is the only file you should touch if you want to
-    make changes to the style of the site.
-
-  - `tidymodels.css` is an optional CSS file written by [Desirée De
-    Leon](http://desiree.rbind.io) that lives in `inst/pkgdown/assets/`.
-    This file is loaded when the `theme:` parameter is used.
 
