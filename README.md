@@ -5,6 +5,8 @@
 - To learn more about the basics of R Markdown, review the [documentation](https://rmarkdown.rstudio.com) or this excellent [presentation](https://drive.google.com/file/d/1mD6qQlUft2g5oc3SGVuOUGHpE3FtStkr/view) from RStudio's Alison Hill.
 
 
+![](https://github.com/kirenz/markdown-report/blob/master/screenshot.png)
+
 ## Customising
 
 - You can customise the report by changing the `YAML` metadata in the header of the document. 
