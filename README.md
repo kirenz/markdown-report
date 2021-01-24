@@ -3,10 +3,14 @@
 - This repo provides a custom R Markdown report template: view [HTML file](https://htmlpreview.github.io/?https://github.com/kirenz/markdown-report/blob/master/markdown-report.html) (note: this preview can't view all elements of the report). 
 - To work properly, the report requires the files `style.css` and `footer.html`. 
 
-Screenshot of the report:
+---
+
+*Screenshot:*
 
 
 ![](https://github.com/kirenz/markdown-report/blob/master/screenshot.png)
+
+---
 
 ## Customising
 
