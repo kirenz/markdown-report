@@ -71,15 +71,3 @@ code {
 	font-family: 'Source Code Pro', Consolas, "Liberation Mono", Menlo, Courier, monospace;
 	line-height: 1.6;
 }
-
-/* Add Logo */
-
-<style>
-#TOC {
-  background: url("https://cdn.sstatic.net/Sites/stackoverflow/company/img/logos/so/so-logo.png?v=9c558ec15d8a");
-  background-size: contain;
-  padding-top: 80px !important;
-  background-repeat: no-repeat;
-}
-</style>
-

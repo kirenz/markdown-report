@@ -26,6 +26,11 @@ library(gapminder)
 
 # Markdown basics {#intro}
 
+<!--
+Hint: you can also hide markdown text in the output 
+-->
+
+
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/416px-Markdown-mark.svg.png){width=50px}
 
 Markdown is one of the world’s most popular markup languages used in data science. Both [R Markdown](https://rmarkdown.rstudio.com) and [Jupyter Notebooks](https://jupyter.org) use Markdown to provide an unified authoring framework for data science, combining code (R, Python, SQL,…), its results and commentary. The documents are fully reproducible and support dozens of output formats, like PDFs, Word files, slideshows, dashboards and more.
@@ -35,6 +40,8 @@ Markdown is one of the world’s most popular markup languages used in data scie
 knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/26639e1fec7fa314b8fe521d1e8f97de10ff12a8/66448/images/bandtwo2.png")
 ```
 
+
+However, using Markdown doesn't mean that you can't also use [Hypertext Markup Language (HTML)](https://www.w3schools.com/html/). You can add HTML tags to any Markdown file. 
 
 
 According to [Wickham & Grolemund (2016)](https://r4ds.had.co.nz/r-markdown.html), Markdown files are designed to be used in three ways:
@@ -54,23 +61,8 @@ div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
 
 <br />
 
-Learn the most important basics of Markdown in this excellent interactive ["60 Seconds Markdown Tutorial"](https://commonmark.org/help/). There are many options to discover - for example, [this link](#intro) will bring you back to the top of the page. 
+Learn the most important basics of Markdown in this excellent interactive ["60 Seconds Markdown Tutorial"](https://commonmark.org/help/). There are many options to discover - for example, [this link](#intro) will bring you back to the top of the page. To get an overview about the various output formats of RMarkdown-documents, watch this short video from RStudio: ["What is RMarkdown?"](https://vimeo.com/178485416).
 
-However, using Markdown doesn't mean that you can't also use [Hypertext Markup Language (HTML)](https://www.w3schools.com/html/). You can add HTML tags to any Markdown file. This means you can also include HTML iframes to display a web page within a web page. In particular, if you have the URL to a Vimeo or YouTube video, you can use an embeddable `<iframe>` element for the video in question. Like the one below:
-
-<br />
-
-<!--
-Hint: you need to open the document in a web browser to view the video (not inside RStudio)
--->
-
-
-<iframe src="https://player.vimeo.com/video/178485416?color=428bca&title=0&byline=0&portrait=0" width="500" height="300" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-<p><a href="https://vimeo.com/178485416">What is R Markdown?</a> from <a href="https://vimeo.com/rstudioinc">RStudio, Inc.</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
-
-
-
-<br />
 
 Furthermore, you can add your own [Cascading Style Sheets (CSS)](https://www.w3schools.com/css/) to change the style of your HTML document (CSS describes how HTML elements should be displayed) by using the css option in YAML (see section [YAML](#yaml)). 
 
