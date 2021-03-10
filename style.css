@@ -64,6 +64,37 @@ h4 {
 	line-height: 1;
 }
 
+/* Table of Content (TOC) */
+
+.list-group-item.active {
+    color: white;
+    font-weight: bold;
+    background-color: #CE2C40;
+    border: none;
+}
+
+.list-group-item:hover, 
+.list-group-item.active:hover {
+    color: white;
+    background-color: #CE2C40;
+}
+
+.list-group-item {
+  background-color: white;
+}
+
+/* Logo in TOC */
+#TOC::before {
+  content: "";
+  display: block;
+  height: 50px;
+  margin: 2em 10px 20px 10px;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/HdM_Logo.svg/100px-HdM_Logo.svg.png");
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
 
 /* Code formatting */
 
