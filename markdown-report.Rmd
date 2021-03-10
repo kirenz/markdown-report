@@ -1,6 +1,10 @@
 ---
 title: "Write Reports in R Markdown"
-author: "Prof. Dr. Jan Kirenz, HdM Stuttgart"
+author: "Prof. Dr. Jan Kirenz, `r params$institute`"
+params: 
+ institute: "HdM Stuttgart"
+ country: "Africa"
+ year: "2007"
 output:
  html_document: 
   css: style.css # define your own css
@@ -19,7 +23,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(tidyverse)
 library(gapminder)
 ```
@@ -47,9 +51,9 @@ However, using Markdown doesn't mean that you can't also use [Hypertext Markup L
 According to [Wickham & Grolemund (2016)](https://r4ds.had.co.nz/r-markdown.html), Markdown files are designed to be used in three ways:
 
 <style>
-div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+div.red { background-color:#E9A1AA; color: #ffffff; font-size: 120%;     font-weight: bold; border-radius: 5px; padding: 20px;}
 </style>
-<div class = "blue">
+<div class = "red">
 
 1. For **communicating** to decision makers, who want to focus on the conclusions, not the code behind the analysis.
 
@@ -66,21 +70,21 @@ Learn the most important basics of Markdown in this excellent interactive ["60 S
 
 Furthermore, you can add your own [Cascading Style Sheets (CSS)](https://www.w3schools.com/css/) to change the style of your HTML document (CSS describes how HTML elements should be displayed) by using the css option in YAML (see section [YAML](#yaml)). 
 
-## Integrate code
+## Integrate code and parameters
 
-In R Markdown it is easy to integrate the results of R code in text elements.  
+R Markdown documents can include one or more global parameters whose values can be set when you render the report. For example, the code below uses a `country` and `year` parameter that determines which country to filter. 
 
 ```{r}
 africa_07 <-  
   gapminder %>% 
-  filter(continent == "Africa") %>% 
+  filter(continent == params$country) %>% # use parameter
   group_by(continent, year) %>% 
   summarize(mean = round(mean(lifeExp),2)) %>% 
-  filter(year == 2007) %>% 
+  filter(year == params$year) %>% # use parameter
   pull(mean) # obtain result as number
 ```
 
-In particular, we can perform a data analysis like the one above and integrate the corresponding result (stored in `africa_07`) in Markdown comments. Instead of actually typing the result, we use the code `` `r "\u0060r africa_07\u0060"` `` (read this [post](https://rviews.rstudio.com/2017/12/04/how-to-show-r-inline-code-blocks-in-r-markdown/) to learn how to display R code snippets in Markdown).
+In R Markdown it is also easy to integrate the results of R code in text elements. In particular, we can perform a data analysis like the one above and integrate the corresponding result (stored in `africa_07`) in Markdown comments. Instead of actually typing the result, we use the code `` `r "\u0060r africa_07\u0060"` `` (read this [post](https://rviews.rstudio.com/2017/12/04/how-to-show-r-inline-code-blocks-in-r-markdown/) to learn how to display R code snippets in Markdown).
 
 This code:
 
