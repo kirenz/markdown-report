@@ -25,7 +25,11 @@ YAML Metadata:
 ``` yaml
 ---
 title: "Write Reports in R Markdown"
-author: "Prof. Dr. Jan Kirenz, HdM Stuttgart"
+author: "Prof. Dr. Jan Kirenz, `r params$institute`"
+params: 
+ institute: "HdM Stuttgart"
+ country: "Africa"
+ year: "2007"
 output:
  html_document: 
   css: style.css # define your own css

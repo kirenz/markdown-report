@@ -148,7 +148,11 @@ YAML metadata for this document:
 ```{r, eval=FALSE}
 ---
 title: "Write Reports in R Markdown"
-author: "Prof. Dr. Jan Kirenz, HdM Stuttgart"
+author: "Prof. Dr. Jan Kirenz, `r params$institute`"
+params: 
+ institute: "HdM Stuttgart"
+ country: "Africa"
+ year: "2007"
 output:
  html_document: 
   css: style.css # define your own css
@@ -157,7 +161,7 @@ output:
   number_sections: yes # numbering of sections
   theme: paper # style option
   fig_height: 4 # figure height
-  fig_width: 10 # figure width
+  fig_width: 8 # figure width
   toc: yes # table of content
   toc_float: 
     collapsed: false # show full toc
